@@ -22,7 +22,7 @@ module Gnomika
 
     category_tables.each do |table|
       # Get category name. Category names are stored in td elements with class "authrsh"
-      category_name = table.xpath("//tr/td[@class='authrsh']//text()")
+      category_name = table.xpath("tr/td[@class='authrsh']").text
 
       # Get the subcategories of each category
       subcategories = []
@@ -35,7 +35,8 @@ module Gnomika
         subcategories << Subcategory.new(subcategory_name,subcategory_url)
       end
 
-      categories << Category.new(category_name,subcategories)
+      categories << Category.new(category_name,subcategories: subcategories)
     end
+    categories
   end
 end
