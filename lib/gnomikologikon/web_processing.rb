@@ -27,7 +27,7 @@ module Gnomika
       # Get the subcategories of each category
       subcategories = []
       # Subcategories of each category are a elements in a list
-      subcategory_elements = table.xpath("//tr//ul//li//a")
+      subcategory_elements = table.xpath("tr//ul//li//a")
       subcategory_elements.each do |element|
         subcategory_name = element.content
         # Need to prefix category URLs with the website URL
