@@ -7,7 +7,7 @@ require "optparse"
 # Module containing all classes and functions of the application
 module Gnomika
   def self.main
-    ArgParser.parse(ARGV)
+    options = ArgParser.parse(ARGV)
   end
 end
 
