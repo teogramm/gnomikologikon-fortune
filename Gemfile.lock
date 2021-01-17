@@ -25,6 +25,7 @@ GEM
     racc (1.5.2)
     rainbow (3.0.0)
     rake (13.0.3)
+    rdoc (6.3.0)
     regexp_parser (2.0.3)
     rexml (3.2.4)
     rubocop (1.8.1)
@@ -48,6 +49,7 @@ DEPENDENCIES
   gnomikologikon-fortune!
   minitest (~> 5.0)
   rake (~> 13.0)
+  rdoc
   rubocop (~> 1.7)
 
 BUNDLED WITH
