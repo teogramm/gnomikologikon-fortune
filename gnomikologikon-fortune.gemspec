@@ -5,6 +5,7 @@ require_relative "lib/gnomikologikon/version"
 Gem::Specification.new do |spec|
   spec.name          = "gnomikologikon-fortune"
   spec.version       = Gnomika::Ruby::VERSION
+  spec.licenses      = ["MIT"]
   spec.authors       = ["Theodoros Grammenos"]
   spec.email         = ["teogramm@outlook.com"]
 
