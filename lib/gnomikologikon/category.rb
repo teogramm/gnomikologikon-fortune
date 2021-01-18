@@ -17,7 +17,7 @@ module Gnomika
   ##
   # A quote subcategory. Has a name and a URL to the quotes page.
   class Subcategory
-    attr_reader :name, :url
+    attr_reader :name, :url, :quotes
 
     ##
     # @param subcategory_name Subcategory name
@@ -25,6 +25,11 @@ module Gnomika
     def initialize(subcategory_name, subcategory_url)
       @name = subcategory_name
       @url = subcategory_url
+      @quotes = []
+    end
+
+    def add_quote(quote)
+      @quotes << quote
     end
   end
 end
