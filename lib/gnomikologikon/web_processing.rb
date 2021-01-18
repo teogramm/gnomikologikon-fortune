@@ -41,13 +41,28 @@ module Gnomika
   end
 
   ##
-  # Fetch all quotes of given subcategory
-  def self.fetch_quotes(subcategory)
-    # response = HTTParty.get(subcategory.url, {
-    #   headers: {"User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"},
-    # })
-    # doc = Nokogiri::HTML.parse(response.body)
-    doc = Nokogiri::HTML.parse(open("viasyni.php"))
+  # Get all quotes for the given subcategories
+  # @param subcategories Array of subcategories
+  # @return Hash matching each subcategory to an Array of quotes
+  def self.get_quotes_for_categories(subcategories)
+    quotes = {}
+    subcategories.each do |subcategory|
+      response = HTTParty.get(subcategory.url, {
+        headers: {"User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"},
+      })
+      quotes[subcategory] = get_quotes_from_html(response.body)
+      # Throttle the connection because processing is fast
+      sleep 1
+    end
+    quotes
+  end
+
+  ##
+  # Fetch all quotes from given HTML page
+  # @param page_body Body of HTML page to extract quotes from
+  # @return Array of quotes
+  def self.get_quotes_from_html(page_body)
+    doc = Nokogiri::HTML.parse(page_body)
     quotes_tables = doc.xpath("//table[@class='quotes']//td[@class='quote']")
     quotes = []
     quotes_tables.each do |quote|
@@ -74,8 +89,7 @@ module Gnomika
       author = quote.xpath(".//p[contains(@class, 'auth')]")
       author = author.map{|el| el.text}.join(' ')
       quotes << Quote.new(content,author)
-      puts quotes[0]
-      exit
     end
+    quotes
   end
 end

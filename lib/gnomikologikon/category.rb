@@ -25,11 +25,11 @@ module Gnomika
     def initialize(subcategory_name, subcategory_url)
       @name = subcategory_name
       @url = subcategory_url
-      @quotes = []
     end
 
-    def add_quote(quote)
-      @quotes << quote
+    def ==(other)
+      self.name == other.name
     end
+
   end
 end

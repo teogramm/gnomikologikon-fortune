@@ -32,6 +32,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency "nokogiri", "~>1.10"
   spec.add_dependency "httparty"
 
+  spec.add_development_dependency "rdoc"
+  spec.add_development_dependency "rubocop", "~> 1.7"
+  spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "rake", "~> 13.0"
+
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
 end

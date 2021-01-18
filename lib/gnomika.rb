@@ -2,7 +2,7 @@
 
 require "gnomikologikon/ui"
 require "gnomikologikon/arg_parser"
-require "gnomikologikon/network/web_processing"
+require "gnomikologikon/web_processing"
 require "optparse"
 
 ##
@@ -13,6 +13,8 @@ module Gnomika
     available_categories = Gnomika.fetch_category_info
     selected_category = select_category(available_categories)
     selected_subcategories = select_subcategories(selected_category)
+    q =  Gnomika.get_quotes_for_categories(selected_subcategories)
+    puts q
   end
 end
 
