@@ -1,35 +1,25 @@
-# Gnomikologikon::Ruby
+![CI](https://github.com/teogramm/gnomikologikon-fortune-ruby/workflows/CI/badge.svg)
+# gnomikologikon-fortune
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/gnomikologikon/ruby`. To experiment with that code, run `bin/console` for an interactive prompt.
+Gnomiko is the greek word for "quote".
 
-TODO: Delete this and the text above, and describe your gem
+This is an application that downloads quotes from https://gnomikologikon.gr and automatically converts them to files that are ready to use with the fortune command.
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'gnomikologikon-ruby'
-```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
 
     $ gem install gnomikologikon-ruby
 
 ## Usage
 
-TODO: Write usage instructions here
+Install and run ``` gnomika ```. The application will ask you about which categories to download. 
+Additional options can be viewed with ``` gnomika --help```
+
+If you want the cookies to be available with the fortune command you must copy the generated files to the fortune directory (usually /usr/games/fortune or /usr/fortune).
 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/gnomikologikon-ruby.
+Bug reports and pull requests are welcome on GitHub at https://github.com/teogramm/gnomikologikon-fortune.

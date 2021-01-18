@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gnomikologikon-fortune (0.1.0)
+    gnomikologikon-fortune (1.0.0)
       httparty
       nokogiri (~> 1.10)
       ruby-progressbar
