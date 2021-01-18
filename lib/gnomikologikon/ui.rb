@@ -75,7 +75,7 @@ module Gnomika
   # Throws an ArgumentError if the selection is invalid. An error message is included in the exception.
   # This function must be used with a single selection (e.g 3 or 3-5), not with a list of many selections (e.g 1,2,3...)
   # @param selection_string String of the selection
-  # @param max_available_index Max value of selected items. This value is a valid selection.
+  # @param max_available_index Maximum allowed value
   # @return Array with the selected items
   def self.selection_to_array(selection_string, max_available_index)
     selection = []
@@ -83,15 +83,7 @@ module Gnomika
     begin
       if selection_string.include?("-")
         # Try to process it as a range
-        range_start, range_end = selection_string.split("-")
-        range_start = Integer(range_start)
-        range_end = Integer(range_end)
-        # Check if range is correct. Start must be smaller or equal than end and end must be smaller or equal
-        # to max_available index
-        unless is_valid_range?(range_start,range_end,max_available_index)
-          raise ArgumentError "Invalid range! (#{selection_string.strip})"
-        end
-        selection = (range_start..range_end).to_a
+        selection = process_range(selection_string,max_available_index)
       else
         # Assume selection is an integer
         number = Integer(selection_string)
@@ -105,6 +97,23 @@ module Gnomika
       raise e
     end
     selection
+  end
+
+  ##
+  # Tries to convert given string to a range of integers. Input string must be of the form a-b
+  # @param upper_limit Maximum allowed value
+  # @return Array of integers in the range
+  # @raise ArgumentError if given selection string is not a valid range
+  def self.process_range(selection_string, upper_limit)
+    range_start, range_end = selection_string.split("-")
+    range_start = Integer(range_start)
+    range_end = Integer(range_end)
+    # Check if range is correct. Start must be smaller or equal than end and end must be smaller or equal
+    # to max_available index
+    unless is_valid_range?(range_start,range_end,max_available_index)
+      raise ArgumentError "Invalid range! (#{selection_string.strip})"
+    end
+    (range_start..range_end).to_a
   end
 
   ##
