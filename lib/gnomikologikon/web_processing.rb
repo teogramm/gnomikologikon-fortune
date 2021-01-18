@@ -69,24 +69,7 @@ module Gnomika
     quotes_tables = doc.xpath("//table[@class='quotes']//td[@class='quote']")
     quotes = []
     quotes_tables.each do |quote|
-      # Get quote contents
-      content = quote.at_xpath("./text()").text
-      # Check if there is an explanation
-      explanation = quote.xpath("./table[@class='expth']//td")
-      unless explanation.empty?
-        # If an explanation exists, there are two td elements
-        # Remove pavla
-        explanation = explanation.reject{|element| element["class"] == "pavla"}
-        # Keep the explanation td element
-        explanation = explanation[0]
-        content << "\n(#{explanation.text})"
-      end
-      # Check if there is a comment
-      comment = quote.xpath("./p[contains(@class, 'comnt')]")
-      unless comment.nil?
-        # Do not add comment if it does not contain text
-        content << "\n#{comment.text}" unless comment.text.empty?
-      end
+      content = get_quote_contents(quote)
       # HTML p elements with class auth0-auth4 contain quote author and additional information (e.g. book)
       # Get the text of all auth p elements and combine them in a string
       author = quote.xpath(".//p[contains(@class, 'auth')]")
@@ -94,5 +77,31 @@ module Gnomika
       quotes << Quote.new(content,author)
     end
     quotes
+  end
+
+  private
+
+  ##
+  # Gets and formats the contents of a quote from the given HTML code.
+  # @param html_quote Nokogiri HTML Node. The node should be a td element with class "quote"
+  def self.get_quote_contents(html_quote)
+    # Get quote contents
+    content = html_quote.at_xpath("./text()").text
+    # Check if there is an explanation
+    # If there is one explanation will be an empty array
+    explanation = html_quote.xpath("./table[@class='expth']//td")
+    unless explanation.empty?
+      # If an explanation exists, there are two td elements
+      # Remove pavla
+      explanation = explanation.reject{|element| element["class"] == "pavla"}
+      # Keep the explanation td element
+      explanation = explanation[0]
+      content << "\n(#{explanation.text})"
+    end
+    # Check if there is a comment
+    comment = html_quote.xpath("./p[contains(@class, 'comnt')]")
+    # Do not add comment if it does not contain text
+    content << "\n#{comment.text}" unless comment&.text.empty?
+    content
   end
 end
