@@ -18,9 +18,7 @@ module Gnomika
     doc = Nokogiri::HTML.parse(response.body)
     # Each "big" category is stored in a table with class "authrst"
     category_tables = doc.xpath("//table[@class='authrst']")
-
     categories = []
-
     category_tables.each do |table|
       # Get category name. Category names are stored in td elements with class "authrsh"
       category_name = table.xpath("tr/td[@class='authrsh']").text

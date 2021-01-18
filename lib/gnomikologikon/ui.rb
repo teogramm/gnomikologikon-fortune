@@ -71,41 +71,48 @@ module Gnomika
   private
 
   ##
-  # Converts given selection into an array of indexes.
+  # Converts given selection into an array of integers.
   # Throws an ArgumentError if the selection is invalid. An error message is included in the exception.
   # This function must be used with a single selection (e.g 3 or 3-5), not with a list of many selections (e.g 1,2,3...)
-  # @param selection String of the selection
-  # @param max_available_index Used w
-  # @return Array of indexes included in the selection
-  def self.selection_to_array(selection, max_available_index)
+  # @param selection_string String of the selection
+  # @param max_available_index Max value of selected items. This value is a valid selection.
+  # @return Array with the selected items
+  def self.selection_to_array(selection_string, max_available_index)
+    selection = []
     # Check if selection is a range
-    if selection.include?("-")
-      # Try to process it as a range
-      range_start, range_end = selection.split("-")
-      begin
+    begin
+      if selection_string.include?("-")
+        # Try to process it as a range
+        range_start, range_end = selection_string.split("-")
         range_start = Integer(range_start)
         range_end = Integer(range_end)
         # Check if range is correct. Start must be smaller or equal than end and end must be smaller or equal
         # to max_available index
-        if range_start > range_end || range_end > max_available_index || range_start < 1
-          raise ArgumentError
+        unless is_valid_range?(range_start,range_end,max_available_index)
+          raise ArgumentError "Invalid range! (#{selection_string.strip})"
         end
-        return (range_start..range_end).to_a
-      rescue ArgumentError
-        raise ArgumentError.new "Invalid range! (#{selection.strip})"
-      end
-    else
-      # Assume selection is an integer
-      begin
-        number = Integer(selection)
+        selection = (range_start..range_end).to_a
+      else
+        # Assume selection is an integer
+        number = Integer(selection_string)
         # Check limits
         if number < 1 || number > max_available_index
-          raise ArgumentError
+          raise ArgumentError "Invalid selection! (#{selection_string.strip})"
         end
-        return [number]
-      rescue
-        raise ArgumentError.new "Invalid selection! (#{selection.strip})"
+        selection = [number]
       end
+    rescue ArgumentError => e
+      raise e
     end
+    selection
+  end
+
+  ##
+  # Checks if a range with the given parameters is valid. A range is valid if:
+  # 1. start <= end
+  # 2. end <= upper_limit
+  # 3. start > 0
+  def self.is_valid_range?(range_start,range_end,upper_limit)
+    range_start > range_end || range_end > upper_limit || range_start < 1
   end
 end
