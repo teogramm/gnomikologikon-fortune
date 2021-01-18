@@ -3,6 +3,7 @@
 require "gnomikologikon/ui"
 require "gnomikologikon/arg_parser"
 require "gnomikologikon/web_processing"
+require "gnomikologikon/file_writer"
 require "optparse"
 
 ##
@@ -13,8 +14,11 @@ module Gnomika
     available_categories = Gnomika.fetch_category_info
     selected_category = select_category(available_categories)
     selected_subcategories = select_subcategories(selected_category)
-    q =  Gnomika.get_quotes_for_categories(selected_subcategories)
-    puts q
+    progressbar = ProgressBar.create(total: selected_subcategories.length)
+    quotes =  Gnomika.get_quotes_for_categories(selected_subcategories){
+      progressbar.increment
+    }
+    write_files(options, quotes)
   end
 end
 

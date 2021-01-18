@@ -4,6 +4,7 @@ require "nokogiri"
 require "httparty"
 require "gnomikologikon/category"
 require "gnomikologikon/quote"
+require "ruby-progressbar"
 
 module Gnomika
   ##
@@ -42,6 +43,7 @@ module Gnomika
 
   ##
   # Get all quotes for the given subcategories
+  # @yield Runs the given block after each subcategory is processed
   # @param subcategories Array of subcategories
   # @return Hash matching each subcategory to an Array of quotes
   def self.get_quotes_for_categories(subcategories)
@@ -51,6 +53,7 @@ module Gnomika
         headers: {"User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"},
       })
       quotes[subcategory] = get_quotes_from_html(response.body)
+      yield if block_given?
       # Throttle the connection because processing is fast
       sleep 1
     end

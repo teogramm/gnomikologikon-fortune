@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "nokogiri", "~>1.10"
   spec.add_dependency "httparty"
+  spec.add_dependency "ruby-progressbar"
 
   spec.add_development_dependency "rdoc"
   spec.add_development_dependency "rubocop", "~> 1.7"

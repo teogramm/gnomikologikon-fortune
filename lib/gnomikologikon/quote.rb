@@ -8,7 +8,9 @@ module Gnomika
     end
 
     def to_s
-      "#{@content}\n  - #{@author}"
+      str = "#{@content}"
+      str << "\n  - #{@author}" unless @author.strip.empty?
+      str
     end
   end
 end

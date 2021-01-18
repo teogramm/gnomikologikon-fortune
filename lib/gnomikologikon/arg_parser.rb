@@ -44,7 +44,7 @@ module Gnomika
           options.custom_output_dir_set = true
           options.custom_output_dir_value = value
         end
-        parser.on "-s [FILENAME]", "--single-file [FILENAME]", "Output all quotes in a single file" do |name|
+        parser.on "-s FILENAME", "--single-file FILENAME", "Output all quotes in a single file" do |name|
           options.single_file = true
           options.single_file_name = name
         end

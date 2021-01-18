@@ -4,6 +4,7 @@ PATH
     gnomikologikon-fortune (0.1.0)
       httparty
       nokogiri (~> 1.10)
+      ruby-progressbar
 
 GEM
   remote: https://rubygems.org/
