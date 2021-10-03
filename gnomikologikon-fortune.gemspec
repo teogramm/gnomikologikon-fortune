@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = "This is a ruby application that downloads quotes from https://gnomikologikon.gr and
                         automatically converts them to files that can be used with the fortune command."
   spec.homepage      = "https://github.com/teogramm/gnomikologikon-fortune"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org/"
 
@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.executables   = `git ls-files -- exe/*`.split("\n").map { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "nokogiri", "~>1.10"
+  spec.add_dependency "nokogiri", "~>1.12.5"
   spec.add_dependency "httparty"
   spec.add_dependency "ruby-progressbar"
 

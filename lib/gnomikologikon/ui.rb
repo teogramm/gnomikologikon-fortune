@@ -89,7 +89,7 @@ module Gnomika
         number = Integer(selection_string)
         # Check limits
         if number < 1 || number > max_available_index
-          raise ArgumentError "Invalid selection! (#{selection_string.strip})"
+          raise ArgumentError.new "Invalid selection! (#{selection_string.strip})"
         end
         selection = [number]
       end
@@ -109,9 +109,9 @@ module Gnomika
     range_start = Integer(range_start)
     range_end = Integer(range_end)
     # Check if range is correct. Start must be smaller or equal than end and end must be smaller or equal
-    # to max_available index
-    unless is_valid_range?(range_start,range_end,max_available_index)
-      raise ArgumentError "Invalid range! (#{selection_string.strip})"
+    # to upper_limit
+    unless is_valid_range?(range_start,range_end,upper_limit)
+      raise ArgumentError.new "Invalid range! (#{selection_string.strip})"
     end
     (range_start..range_end).to_a
   end
@@ -122,6 +122,6 @@ module Gnomika
   # 2. end <= upper_limit
   # 3. start > 0
   def self.is_valid_range?(range_start,range_end,upper_limit)
-    range_start > range_end || range_end > upper_limit || range_start < 1
+    not (range_start > range_end || range_end > upper_limit || range_start < 1)
   end
 end
