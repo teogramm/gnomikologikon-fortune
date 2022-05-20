@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.executables   = `git ls-files -- exe/*`.split("\n").map { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "nokogiri", "~>1.12.5"
+  spec.add_dependency "nokogiri", "~>1.13.6"
   spec.add_dependency "httparty"
   spec.add_dependency "ruby-progressbar"
 
